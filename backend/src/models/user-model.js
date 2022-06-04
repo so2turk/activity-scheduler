@@ -19,6 +19,24 @@ const userSchema = new mongoose.Schema({
 		required: [true, 'Please add a password'],
 		min: 6,
 	},
+	roles: [
+		{
+			type: String,
+			required: true,
+		},
+	],
+	created: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Activity',
+		},
+	],
+	responsible: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Activity',
+		},
+	],
 })
 
 export default mongoose.model('User', userSchema)
