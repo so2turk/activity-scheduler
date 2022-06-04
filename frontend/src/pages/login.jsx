@@ -39,7 +39,9 @@ const Login = ({ user, setUser }) => {
 					ref={passwordRef}
 					required
 				/>
-				<button type="submit">Login</button>
+				<button className="button btnLR" type="submit">
+					Login
+				</button>
 			</form>
 			<div>
 				{logSuccess && (

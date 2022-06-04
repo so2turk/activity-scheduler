@@ -35,7 +35,9 @@ const Register = ({ setShowReg }) => {
 				<input type="email" placeholder="E-mail" ref={emailRef} />
 				<input type="text" placeholder="User Name" ref={nameRef} />
 				<input type="password" placeholder="Password" ref={passwordRef} />
-				<button type="submit">Register</button>
+				<button className="button btnLR" type="submit">
+					Register
+				</button>
 			</form>
 			<div>
 				{regSuccess && (
