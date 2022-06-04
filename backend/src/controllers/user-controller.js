@@ -54,7 +54,23 @@ export const logout = async (req, res) => {
 	res.send(`Successfully logged out: we'll miss you ${user.name}`)
 }
 
-export const updateUser = async (req, res) => {}
+export const updateUser = async (req, res) => {
+	if (req.user.id === req.params.userId) {
+		try {
+			const id = req.params.userId
+			const updates = req.body
+
+			const updatedUser = await User.findByIdAndUpdate(id, updates, {
+				new: true,
+			})
+			res.send(`User is successfuly updated`)
+		} catch (err) {
+			res.status(400).json({ msg: 'Something went wrong' })
+		}
+	} else {
+		return res.status(403).json('You are not allowed to update this user!')
+	}
+}
 
 export const deleteUser = async (req, res) => {
 	if (req.user.id === req.params.userId) {
