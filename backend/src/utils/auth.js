@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import User from '../models/user-model.js'
 const accessTokenKey = process.env.ACCESS_TOKEN_KEY
 
 export const genAccessToken = (date, user) => {
@@ -13,4 +14,22 @@ export const genAccessToken = (date, user) => {
 			expiresIn: '1d',
 		}
 	)
+}
+
+export const verify = (req, res, next) => {
+	const authHeader = req.headers.authorization || req.headers.Authorization
+
+	if (!authHeader) return res.status(401).send('Authorization failed: no token')
+	else if (!authHeader.startsWith('Bearer'))
+		return res.status(401).send('Authorization failed: token is not valid')
+
+	const token = authHeader.split(' ')[1]
+
+	jwt.verify(token, accessTokenKey, async (err, user) => {
+		if (err)
+			return res.status(403).send('Authorization failed: token is not valid')
+
+		req.user = await User.findById(user.id).select('-password')
+		next()
+	})
 }
