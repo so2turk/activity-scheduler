@@ -55,5 +55,20 @@ export const logout = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {}
-export const deleteUser = async (req, res) => {}
+
+export const deleteUser = async (req, res) => {
+	if (req.user.id === req.params.userId) {
+		try {
+			const id = req.params.userId
+			const deletedUser = await User.findByIdAndDelete(id)
+
+			res.send(`User has been deleted.`)
+		} catch (err) {
+			res.status(400).json({ msg: 'Something went wrong' })
+		}
+	} else {
+		return res.status(403).json('You are not allowed to delete this user!')
+	}
+}
+
 export const getUser = async (req, res) => {}
