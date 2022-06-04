@@ -1,5 +1,6 @@
 import Activity from '../models/activity-model.js'
 import User from '../models/user-model.js'
+import mongoose from 'mongoose'
 
 export const createActivity = async (req, res) => {
 	const { type, description, date, responsible } = req.body
@@ -32,7 +33,33 @@ export const createActivity = async (req, res) => {
 	}
 }
 
-export const updateActivity = (req, res) => {}
+export const updateActivity = async (req, res) => {
+	const id = req.params.activityId
+	const updates = req.body
+
+	console.log('user', req.user.created)
+	console.log('id', id)
+
+	if (!mongoose.Types.ObjectId.isValid(id))
+		return res.status(401).send('No activity with that id')
+
+	if (
+		req.user.created.some((activity) => activity == id) ||
+		req.user.role === 'admin'
+	) {
+		try {
+			const updatedActivity = await Activity.findByIdAndUpdate(id, updates, {
+				new: true,
+			})
+			res.status(200).json({ success: 'Activity is updated' })
+		} catch (err) {
+			res.status(400).json({ msg: 'Something went wrong' })
+		}
+	} else {
+		return res.status(403).json('You are not allowed to update this activity!')
+	}
+}
+
 export const deleteActivity = (req, res) => {}
 export const getActivity = (req, res) => {}
 export const getActivities = (req, res) => {}
