@@ -87,4 +87,16 @@ export const deleteUser = async (req, res) => {
 	}
 }
 
-export const getUser = async (req, res) => {}
+export const getUser = async (req, res) => {
+	try {
+		const user = await User.findById(req.params.userId)
+		if (user)
+			res.status(200).json({
+				email: user.email,
+				name: user.name,
+			})
+		else res.status(400).json('No user found')
+	} catch (err) {
+		res.status(500).json({ msg: 'something went wrong', eMsg: err.message })
+	}
+}
