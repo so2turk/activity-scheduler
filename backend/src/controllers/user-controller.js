@@ -27,7 +27,25 @@ export const register = async (req, res) => {
 	}
 }
 
-export const login = async (req, res) => {}
+export const login = async (req, res) => {
+	const { email, password } = req.body
+
+	try {
+		if (!email || !password)
+			return res.status(400).json('Please add all fields')
+
+		const user = await User.findOne({ email })
+		if (!user) return res.status(400).json('Wrong email or password')
+
+		const validPass = await bcrypt.compare(password, user.password)
+		if (!validPass) return res.status(400).json('Wrong email or password1')
+
+		res.status(200).json({ user })
+	} catch (err) {
+		res.status(500).json(err)
+	}
+}
+
 export const logout = async (req, res) => {}
 export const updateUser = async (req, res) => {}
 export const deleteUser = async (req, res) => {}
