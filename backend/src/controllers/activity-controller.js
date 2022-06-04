@@ -83,5 +83,23 @@ export const deleteActivity = async (req, res) => {
 	}
 }
 
-export const getActivity = (req, res) => {}
-export const getActivities = (req, res) => {}
+export const getActivity = async (req, res) => {
+	const id = req.params.activityId
+
+	try {
+		const activity = await Activity.findById(id)
+		if (activity) res.status(200).json(activity)
+		else res.status(400).json('No activity is found!')
+	} catch (err) {
+		res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
+	}
+}
+
+export const getActivities = async (req, res) => {
+	try {
+		const activities = await Activity.find()
+		res.status(200).json(activities)
+	} catch (err) {
+		res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
+	}
+}

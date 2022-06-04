@@ -14,7 +14,7 @@ activityRouter
 	.post('/create', verify, createActivity)
 	.patch('/update/:activityId', verify, updateActivity)
 	.delete('/delete/:activityId', verify, deleteActivity)
-	.get('/:userId', verify, getActivity)
+	.get('/getActivity/:activityId', verify, getActivity)
 	.get('/getAll', verify, getActivities)
 
 export default activityRouter
