@@ -30,7 +30,7 @@ const Register = ({ setShowReg }) => {
 	}
 
 	return (
-		<div>
+		<div className="container">
 			<form onSubmit={handleReg}>
 				<input type="email" placeholder="E-mail" ref={emailRef} />
 				<input type="text" placeholder="User Name" ref={nameRef} />

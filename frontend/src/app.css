@@ -4,3 +4,54 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  width: 300px;
+  height: 200px;
+
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgb(4, 61, 83);
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  width: 100%;
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  width: 200px;
+}
+
+.success {
+  color: white;
+}
+
+.failure {
+  color: red;
+}

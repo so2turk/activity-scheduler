@@ -30,7 +30,7 @@ const Login = ({ user, setUser }) => {
 	}
 
 	return (
-		<div>
+		<div className="container">
 			<form onSubmit={handleLog}>
 				<input type="email" placeholder="E-mail" ref={emailRef} required />
 				<input
