@@ -21,6 +21,7 @@ export const register = async (req, res) => {
 			email,
 			name,
 			password: hashedPassword,
+			role: 'user',
 		})
 		res.status(200).json({ success: `New user ${newUser.name} created` })
 	} catch (err) {

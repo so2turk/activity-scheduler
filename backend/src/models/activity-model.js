@@ -2,13 +2,13 @@ import mongoose from 'mongoose'
 
 const activitySchema = new mongoose.Schema(
 	{
-		createdBy: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
-		},
 		type: {
 			type: String,
 			required: [true, 'Please select an activity'],
+		},
+		description: {
+			type: String,
+			max: 500,
 		},
 		date: {
 			type: Date,
@@ -21,6 +21,10 @@ const activitySchema = new mongoose.Schema(
 		status: {
 			type: Boolean,
 			required: true,
+		},
+		createdBy: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
 		},
 	},
 	{

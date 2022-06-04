@@ -19,12 +19,10 @@ const userSchema = new mongoose.Schema({
 		required: [true, 'Please add a password'],
 		min: 6,
 	},
-	roles: [
-		{
-			type: String,
-			required: true,
-		},
-	],
+	role: {
+		type: String,
+		required: true,
+	},
 	created: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
