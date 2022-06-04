@@ -15,8 +15,8 @@ app.use(
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/users', userRouter)
+app.use('/api/users', userRouter)
 
 const port = process.env.PORT || 5555
-app.get('/', (req, res) => res.send('Server is up and running'))
+app.get('/api', (req, res) => res.send('Server is up and running'))
 app.listen(port, () => console.log(`Listening on port: ${port}`))
