@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import JWTDecode from 'jwt-decode'
 import '../app.css'
@@ -8,6 +9,9 @@ const Login = ({ user, setUser }) => {
 	const [logFailure, setLogFailure] = useState(false)
 	const emailRef = useRef()
 	const passwordRef = useRef()
+	const navigate = useNavigate()
+	const location = useLocation()
+	const from = location.state?.from?.pathname || '/'
 
 	const handleLog = async (e) => {
 		e.preventDefault()
@@ -22,6 +26,10 @@ const Login = ({ user, setUser }) => {
 			setUser(JWTDecode(res?.data?.accessToken).name)
 			setLogSuccess(true)
 			setLogFailure(false)
+
+			setTimeout(() => {
+				navigate(from, { replace: true })
+			}, 500)
 		} catch (err) {
 			console.log(err)
 			setLogSuccess(false)

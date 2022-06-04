@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import '../app.css'
 
 const Register = ({ setShowReg }) => {
@@ -8,6 +9,9 @@ const Register = ({ setShowReg }) => {
 	const emailRef = useRef()
 	const nameRef = useRef()
 	const passwordRef = useRef()
+	const navigate = useNavigate()
+	const location = useLocation()
+	const from = location.state?.from?.pathname || '/'
 
 	const handleReg = async (e) => {
 		e.preventDefault()
@@ -22,6 +26,10 @@ const Register = ({ setShowReg }) => {
 			await axios.post('/api/users/register', userToCreate)
 			setRegSucces(true)
 			setRegFailure(false)
+
+			setTimeout(() => {
+				navigate(from, { replace: true })
+			}, 1000)
 		} catch (err) {
 			console.log(err)
 			setRegFailure(true)
