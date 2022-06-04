@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import autopopulate from 'mongoose-autopopulate'
 
 const userSchema = new mongoose.Schema({
 	email: {
@@ -27,12 +28,14 @@ const userSchema = new mongoose.Schema({
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Activity',
+			autopopulate: { maxDepth: 1 },
 		},
 	],
 	responsible: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Activity',
+			autopopulate: { maxDepth: 1 },
 		},
 	],
 })

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import autopopulate from 'mongoose-autopopulate'
 
 const activitySchema = new mongoose.Schema(
 	{
@@ -17,6 +18,7 @@ const activitySchema = new mongoose.Schema(
 		reponsible: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
+			autopopulate: { maxDepth: 1 },
 		},
 		status: {
 			type: Boolean,
@@ -25,6 +27,7 @@ const activitySchema = new mongoose.Schema(
 		createdBy: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
+			autopopulate: { maxDepth: 1 },
 		},
 	},
 	{
