@@ -6,9 +6,9 @@ import {
 	logout,
 	register,
 	updateUser,
-} from '../controllers/user-controller'
+} from '../controllers/user-controller.js'
 
-userRouter = express.Router()
+const userRouter = express.Router()
 
 userRouter
 	.post('/register', register)
