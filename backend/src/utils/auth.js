@@ -8,6 +8,7 @@ export const genAccessToken = (date, user) => {
 			date: date,
 			name: user.name,
 			id: user._id,
+			role: user.role,
 		},
 		accessTokenKey,
 		{
@@ -29,7 +30,8 @@ export const verify = (req, res, next) => {
 		if (err)
 			return res.status(403).send('Authorization failed: token is not valid')
 
-		req.user = await User.findById(user.id).select('-password')
+		req.id = user.id
+		req.role = user.role
 		next()
 	})
 }
