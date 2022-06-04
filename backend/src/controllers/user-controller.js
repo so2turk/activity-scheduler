@@ -56,7 +56,7 @@ export const logout = async (req, res) => {
 }
 
 export const updateUser = async (req, res) => {
-	if (req.user.id === req.params.userId) {
+	if (req.id === req.params.userId || req.role === 'admin') {
 		try {
 			const id = req.params.userId
 			const updates = req.body
@@ -74,7 +74,7 @@ export const updateUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-	if (req.user.id === req.params.userId) {
+	if (req.id === req.params.userId || req.role === 'admin') {
 		try {
 			const id = req.params.userId
 			const deletedUser = await User.findByIdAndDelete(id)
@@ -89,15 +89,18 @@ export const deleteUser = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-	try {
-		const user = await User.findById(req.params.userId)
-		if (user)
-			res.status(200).json({
-				email: user.email,
-				name: user.name,
-			})
-		else res.status(400).json('No user found')
-	} catch (err) {
-		res.status(500).json({ msg: 'something went wrong', eMsg: err.message })
+	if (req.id === req.params.userId || req.role === 'admin') {
+		try {
+			const user = await User.findById(req.params.userId).select('-password')
+			if (user)
+				res.status(200).json({
+					user,
+				})
+			else res.status(400).json('No user found')
+		} catch (err) {
+			res.status(500).json({ msg: 'something went wrong', eMsg: err.message })
+		}
+	} else {
+		return res.status(403).json('You are not allowed to get this data!')
 	}
 }
