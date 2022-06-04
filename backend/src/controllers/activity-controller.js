@@ -64,6 +64,24 @@ export const updateActivity = async (req, res) => {
 	}
 }
 
-export const deleteActivity = (req, res) => {}
+export const deleteActivity = async (req, res) => {
+	const id = req.params.activityId
+	const user = await User.findById(req.id)
+
+	if (
+		user.created.some((activity) => activity == id) ||
+		user.role === 'admin'
+	) {
+		try {
+			const shop = await Activity.findByIdAndDelete(id)
+			res.status(200).json({ success: 'Activity is deleted' })
+		} catch (err) {
+			res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
+		}
+	} else {
+		return res.status(403).json('You are not allowed to delete this activity!')
+	}
+}
+
 export const getActivity = (req, res) => {}
 export const getActivities = (req, res) => {}
