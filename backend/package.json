@@ -1,0 +1,23 @@
+{
+  "name": "activity-scheduler",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/so2turk/activity-scheduler.git"
+  },
+  "author": "SÖ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/so2turk/activity-scheduler/issues"
+  },
+  "homepage": "https://github.com/so2turk/activity-scheduler#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
