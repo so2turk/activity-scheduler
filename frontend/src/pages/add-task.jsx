@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import AxiosJWT from '../utils/axios-jwt'
 import '../app.css'
 
@@ -65,18 +65,15 @@ const AddTask = () => {
 	}
 
 	return (
-		<div>
-			<form onSubmit={handleReg}>
+		<div className="taskContainer">
+			<form className="taskForm" onSubmit={handleReg}>
 				<select ref={taskRef}>
 					<option value="Mowing">Mowing</option>
 					<option value="Fertilisation">Fertilisation</option>
 					<option value="Irrigation">Irrigation</option>
-					<option selected value="Aeration">
-						Aeration
-					</option>
+					<option value="Aeration">Aeration</option>
 				</select>
 				<textarea
-					required
 					rows="5"
 					cols="50"
 					type="text"
@@ -109,9 +106,6 @@ const AddTask = () => {
 					<span className="failure">Activity creation is failed</span>
 				)}
 			</div>
-			<Link to="/">
-				<button className="button btnLR">Home</button>
-			</Link>
 		</div>
 	)
 }
