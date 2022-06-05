@@ -31,17 +31,11 @@ const Home = () => {
 
 	return (
 		<div className="home">
-			<h2>Dash Board</h2>
-			<Link to="/login">
-				<button className="button btnLR">Login</button>
-			</Link>
-			<Link to="/register">
-				<button className="button btnLR">Register</button>
-			</Link>
+			<h2>Dashboard</h2>
 			<Link to="/add-task">
 				<button className="button btnLR">Add Task</button>
 			</Link>
-			<div>
+			<div className="cards">
 				{activities.length > 0 ? (
 					activities.map((activity) => (
 						<Link to={`/activity/${activity._id}`}>
