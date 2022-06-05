@@ -39,4 +39,6 @@ const activitySchema = new mongoose.Schema(
 	}
 )
 
+activitySchema.plugin(autopopulate)
+
 export default mongoose.model('Activity', activitySchema)

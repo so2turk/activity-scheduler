@@ -48,4 +48,6 @@ const userSchema = new mongoose.Schema(
 	}
 )
 
+userSchema.plugin(autopopulate)
+
 export default mongoose.model('User', userSchema)
