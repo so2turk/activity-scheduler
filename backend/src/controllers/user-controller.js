@@ -22,6 +22,7 @@ export const register = async (req, res) => {
 			name,
 			password: hashedPassword,
 			role: 'user',
+			avatar: `https://avatars.dicebear.com/api/adventurer/${name}.svg`,
 		})
 		res.status(200).json({ success: `New user ${newUser.name} created` })
 	} catch (err) {

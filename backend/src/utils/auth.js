@@ -10,6 +10,7 @@ export const genAccessToken = (date, user) => {
 			name: user.name,
 			id: user._id,
 			role: user.role,
+			avatar: user.avatar,
 		},
 		accessTokenKey,
 		{
@@ -20,7 +21,13 @@ export const genAccessToken = (date, user) => {
 
 export const genRefreshToken = (date, user) => {
 	return jwt.sign(
-		{ date: date, name: user.name, id: user._id, role: user.role },
+		{
+			date: date,
+			name: user.name,
+			id: user._id,
+			role: user.role,
+			avatar: user.avatar,
+		},
 		refreshTokenKey,
 		{ expiresIn: '1d' }
 	)
