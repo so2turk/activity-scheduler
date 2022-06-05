@@ -6,12 +6,14 @@ import AuthPages from './components/auth-pages'
 import AddTask from './pages/add-task'
 import Activity from './pages/activity'
 import PersistentLogin from './components/persist-login'
+import Nav from './components/nav'
 import './app.css'
 
 function App() {
 	return (
 		<Router>
 			<div className="app">
+				<Nav />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/register" element={<Register />} />
