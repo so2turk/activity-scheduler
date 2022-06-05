@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../utils/axios'
 import useAuth from '../utils/use-auth'
 import '../app.css'
 
@@ -23,7 +23,7 @@ const Login = () => {
 		}
 
 		try {
-			const res = await axios.post('/api/users/login', userToLog)
+			const res = await axios.post('/users/login', userToLog)
 			const user = res?.data?.user
 			const accessToken = res?.data?.accessToken
 

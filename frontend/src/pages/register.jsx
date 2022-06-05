@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../utils/axios'
 import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import '../app.css'
@@ -23,7 +23,7 @@ const Register = ({ setShowReg }) => {
 		}
 
 		try {
-			await axios.post('/api/users/register', userToCreate)
+			await axios.post('/users/register', userToCreate)
 			setRegSucces(true)
 			setRegFailure(false)
 
