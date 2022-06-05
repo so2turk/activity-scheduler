@@ -35,3 +35,5 @@ export const verify = (req, res, next) => {
 		next()
 	})
 }
+
+export const verifyRefreshToken = async (req, res, next) => {}
