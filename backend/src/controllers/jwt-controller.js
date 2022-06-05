@@ -1,3 +1,5 @@
+import { genAccessToken } from '../utils/auth.js'
+
 export const refreshToken = async (req, res) => {
 	const user = req.user
 
