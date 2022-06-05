@@ -2,6 +2,7 @@ import express from 'express'
 import {
 	createActivity,
 	deleteActivity,
+	filterActivities,
 	getActivities,
 	getActivity,
 	updateActivity,
@@ -15,6 +16,7 @@ activityRouter
 	.patch('/update/:activityId', verify, updateActivity)
 	.delete('/delete/:activityId', verify, deleteActivity)
 	.get('/getActivity/:activityId', verify, getActivity)
-	.get('/getAll', verify, getActivities)
+	.get('/getAll', getActivities)
+	.get('/filter', filterActivities)
 
 export default activityRouter

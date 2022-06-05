@@ -115,3 +115,16 @@ export const getActivities = async (req, res) => {
 		res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
 	}
 }
+
+export const filterActivities = async (req, res) => {
+	const filter = req.body.filter
+
+	try {
+		Activity.find(filter).exec((err, activities) => {
+			if (err) return res.status(400).json({ success: false, err })
+			res.status(200).json({ success: true, activities })
+		})
+	} catch (err) {
+		res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
+	}
+}

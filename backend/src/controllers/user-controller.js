@@ -118,13 +118,6 @@ export const getUser = async (req, res) => {
 
 export const filterUsers = async (req, res) => {
 	const filter = req.body.filter
-	// 	let applyFilters = {}
-
-	// 	for (let key in req.body.filters) {
-	// 	if (filters[key] !== null && filters[key].length > 0) {
-	// 		applyFilters[key] = filters[key]
-	// 	}
-	// }
 
 	try {
 		User.find(filter).exec((err, users) => {
