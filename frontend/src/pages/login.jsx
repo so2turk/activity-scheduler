@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import JWTDecode from 'jwt-decode'
+import useAuth from '../utils/use-auth'
 import '../app.css'
 
-const Login = ({ user, setUser }) => {
-	const [logSuccess, setLogSuccess] = useState(false)
+const Login = () => {
+	const { setAuth } = useAuth()
+
 	const [logFailure, setLogFailure] = useState(false)
 	const emailRef = useRef()
 	const passwordRef = useRef()
@@ -23,16 +24,13 @@ const Login = ({ user, setUser }) => {
 
 		try {
 			const res = await axios.post('/api/users/login', userToLog)
-			setUser(JWTDecode(res?.data?.accessToken).name)
-			setLogSuccess(true)
-			setLogFailure(false)
+			const user = res?.data?.user
+			const accessToken = res?.data?.accessToken
 
-			setTimeout(() => {
-				navigate(from, { replace: true })
-			}, 500)
+			setAuth({ user, accessToken })
+			navigate(from, { replace: true })
 		} catch (err) {
 			console.log(err)
-			setLogSuccess(false)
 			setLogFailure(true)
 		}
 	}
@@ -52,9 +50,6 @@ const Login = ({ user, setUser }) => {
 				</button>
 			</form>
 			<div>
-				{logSuccess && (
-					<span className="success">{user}'s login is successful</span>
-				)}
 				{logFailure && <span className="failure">Login is failed</span>}
 			</div>
 		</div>
