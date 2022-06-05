@@ -5,6 +5,7 @@ import Home from './pages/home'
 import AuthPages from './components/auth-pages'
 import AddTask from './pages/add-task'
 import Activity from './pages/activity'
+import PersistentLogin from './components/persist-login'
 import './app.css'
 
 function App() {
@@ -17,9 +18,11 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
 
-					<Route element={<AuthPages />}>
-						<Route path="/add-task" element={<AddTask />} />
-						<Route path="/activity/:id" element={<Activity />} />
+					<Route element={<PersistentLogin />}>
+						<Route element={<AuthPages />}>
+							<Route path="/add-task" element={<AddTask />} />
+							<Route path="/activity/:id" element={<Activity />} />
+						</Route>
 					</Route>
 				</Routes>
 			</div>

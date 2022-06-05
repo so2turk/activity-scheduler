@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from '../utils/axios'
 import useAuth from '../utils/use-auth'
 import '../app.css'
 
 const Login = () => {
-	const { setAuth } = useAuth()
+	const { setAuth, persist, setPersist } = useAuth()
 
 	const [logFailure, setLogFailure] = useState(false)
 	const emailRef = useRef()
@@ -35,6 +35,14 @@ const Login = () => {
 		}
 	}
 
+	const togglePersist = () => {
+		setPersist((prev) => !prev)
+	}
+
+	useEffect(() => {
+		localStorage.setItem('persist', persist)
+	}, [persist])
+
 	return (
 		<div className="container">
 			<form onSubmit={handleLog}>
@@ -49,9 +57,18 @@ const Login = () => {
 					Login
 				</button>
 			</form>
-			<div>
-				{logFailure && <span className="failure">Login is failed</span>}
+			<div className="persistCheck">
+				<label className="persistLabel">
+					<input
+						type="checkbox"
+						id="persist"
+						onChange={togglePersist}
+						checked={persist}
+					/>
+					<span className="persistSpan">Trust This Device</span>
+				</label>
 			</div>
+			{logFailure && <span className="failure">Login is failed</span>}
 		</div>
 	)
 }
