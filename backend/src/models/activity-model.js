@@ -3,7 +3,7 @@ import autopopulate from 'mongoose-autopopulate'
 
 const activitySchema = new mongoose.Schema(
 	{
-		type: {
+		task: {
 			type: String,
 			required: [true, 'Please select an activity'],
 		},
@@ -14,6 +14,10 @@ const activitySchema = new mongoose.Schema(
 		date: {
 			type: Date,
 			required: [true, 'Please select a date'],
+		},
+		duration: {
+			type: Number,
+			required: [true, 'Please provide a duration'],
 		},
 		responsible: {
 			type: mongoose.Schema.Types.ObjectId,

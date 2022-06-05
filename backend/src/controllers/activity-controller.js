@@ -2,10 +2,10 @@ import Activity from '../models/activity-model.js'
 import User from '../models/user-model.js'
 
 export const createActivity = async (req, res) => {
-	const { type, description, date, responsible } = req.body
+	const { task, description, date, duration, responsible } = req.body
 
 	try {
-		if (!type || !description || !date || !responsible)
+		if (!task || !description || !date || !duration || !responsible)
 			return res.status(400).json('Please add all fields')
 
 		const user = await User.findById(req.id)
@@ -22,9 +22,10 @@ export const createActivity = async (req, res) => {
 				.json('You are not allowed to assign activity to this user')
 
 		const newActivity = await Activity.create({
-			type,
+			task,
 			description,
 			date,
+			duration,
 			responsible: responsibleUser,
 			status: false,
 			createdBy: user,
