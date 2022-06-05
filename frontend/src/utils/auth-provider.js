@@ -1,3 +1,5 @@
+// https://github.com/gitdagray/react_jwt_auth
+
 import { createContext, useState } from 'react'
 
 const AuthContext = createContext({})
