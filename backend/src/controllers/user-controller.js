@@ -64,7 +64,14 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
 	const user = req.user
-	res.send(`Successfully logged out: we'll miss you ${user.name}`)
+
+	user.refreshToken = ''
+	const loggedoutUser = await user.save()
+
+	res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
+	res
+		.status(204)
+		.send({ success: `${loggedoutUser.userName} successufully logged out` })
 }
 
 export const updateUser = async (req, res) => {

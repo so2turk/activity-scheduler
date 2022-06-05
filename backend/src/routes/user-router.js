@@ -8,14 +8,14 @@ import {
 	register,
 	updateUser,
 } from '../controllers/user-controller.js'
-import { verify } from '../utils/auth.js'
+import { verify, verifyRefreshToken } from '../utils/auth.js'
 
 const userRouter = express.Router()
 
 userRouter
 	.post('/register', register)
 	.post('/login', login)
-	.get('/logout', verify, logout)
+	.post('/logout', verifyRefreshToken, logout)
 	.patch('/update/:userId', verify, updateUser)
 	.delete('/delete/:userId', verify, deleteUser)
 	.get('/getUser/:userId', verify, getUser)
