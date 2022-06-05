@@ -4,6 +4,7 @@ import Login from './pages/login'
 import Home from './pages/home'
 import AuthPages from './components/auth-pages'
 import AddTask from './pages/add-task'
+import Activity from './pages/activity'
 import './app.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
 					<Route element={<AuthPages />}>
 						<Route path="/add-task" element={<AddTask />} />
+						<Route path="/activity/:id" element={<Activity />} />
 					</Route>
 				</Routes>
 			</div>

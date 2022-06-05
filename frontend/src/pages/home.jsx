@@ -39,7 +39,11 @@ const Home = () => {
 			</Link>
 			<div>
 				{activities.length > 0 &&
-					activities.map((activity) => <ActivityCard activity={activity} />)}
+					activities.map((activity) => (
+						<Link to={`/activity/${activity._id}`}>
+							<ActivityCard activity={activity} />
+						</Link>
+					))}
 			</div>
 		</div>
 	)
