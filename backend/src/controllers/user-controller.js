@@ -115,3 +115,23 @@ export const getUser = async (req, res) => {
 		return res.status(403).json('You are not allowed to get this data!')
 	}
 }
+
+export const filterUsers = async (req, res) => {
+	const filter = req.body.filter
+	// 	let applyFilters = {}
+
+	// 	for (let key in req.body.filters) {
+	// 	if (filters[key] !== null && filters[key].length > 0) {
+	// 		applyFilters[key] = filters[key]
+	// 	}
+	// }
+
+	try {
+		User.find(filter).exec((err, users) => {
+			if (err) return res.status(400).json({ success: false, err })
+			res.status(200).json({ success: true, users })
+		})
+	} catch (err) {
+		res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
+	}
+}

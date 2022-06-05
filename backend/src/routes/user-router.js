@@ -1,6 +1,7 @@
 import express from 'express'
 import {
 	deleteUser,
+	filterUsers,
 	getUser,
 	login,
 	logout,
@@ -18,5 +19,6 @@ userRouter
 	.patch('/update/:userId', verify, updateUser)
 	.delete('/delete/:userId', verify, deleteUser)
 	.get('/getUser/:userId', verify, getUser)
+	.post('/filter', verify, filterUsers)
 
 export default userRouter
