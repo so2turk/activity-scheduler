@@ -48,6 +48,13 @@ export const login = async (req, res) => {
 		user.refreshToken = refreshToken
 		const loggedUser = await user.save()
 
+		res.cookie('jwtRefresh', refreshToken, {
+			httpOnly: true,
+			secure: true,
+			sameSite: 'None',
+			maxAge: 24 * 60 * 60 * 1000,
+		})
+
 		res.status(200).json({ accessToken })
 	} catch (err) {
 		res.status(500).json(err)
