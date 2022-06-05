@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../app.css'
+import ActivityCard from '../components/activity-card'
 import axios from '../utils/axios'
 
 const Home = () => {
@@ -36,19 +37,10 @@ const Home = () => {
 			<Link to="/add-task">
 				<button className="button btnLR">Add Task</button>
 			</Link>
-			<section>
+			<div>
 				{activities.length > 0 &&
-					activities.map((activity) => {
-						return (
-							<>
-								<div>{activity.task}</div>
-								<div>{activity.date}</div>
-								<div>{activity.duration}</div>
-								<div>{activity.responsible.name}</div>
-							</>
-						)
-					})}
-			</section>
+					activities.map((activity) => <ActivityCard activity={activity} />)}
+			</div>
 		</div>
 	)
 }
