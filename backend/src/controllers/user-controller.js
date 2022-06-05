@@ -42,7 +42,11 @@ export const login = async (req, res) => {
 		const validPass = await bcrypt.compare(password, user.password)
 		if (!validPass) return res.status(400).json('Wrong email or password1')
 
+		const refreshToken = genRefreshToken(new Date(), user)
 		const accessToken = genAccessToken(new Date(), user)
+
+		user.refreshToken = refreshToken
+		const loggedUser = await user.save()
 
 		res.status(200).json({ accessToken })
 	} catch (err) {
