@@ -92,7 +92,18 @@ const Activity = () => {
 			setActivity(result?.data)
 		} catch (err) {
 			console.error(err)
-			navigate('/login', from, { replace: true })
+			setTimeout(() => {
+				navigate('/', from, { replace: true })
+			}, 1000)
+		}
+	}
+
+	const handleDelete = async () => {
+		try {
+			await axiosPrivate.delete(`/activity/delete/${id}`)
+		} catch (err) {
+			console.error(err)
+			navigate('/', from, { replace: true })
 		}
 	}
 
@@ -169,6 +180,13 @@ const Activity = () => {
 						Update
 					</button>
 				</form>
+				<button
+					style={{ backgroundColor: 'red', color: 'white' }}
+					className="button btnLR"
+					onClick={() => handleDelete()}
+				>
+					Delete Activity
+				</button>{' '}
 				<div>
 					{addSuccess && (
 						<span className="success">Activity is created successfuly</span>
