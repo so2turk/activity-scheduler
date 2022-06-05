@@ -15,7 +15,7 @@ const activitySchema = new mongoose.Schema(
 			type: Date,
 			required: [true, 'Please select a date'],
 		},
-		reponsible: {
+		responsible: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			autopopulate: { maxDepth: 1 },

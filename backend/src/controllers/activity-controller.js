@@ -74,6 +74,17 @@ export const deleteActivity = async (req, res) => {
 	) {
 		try {
 			const shop = await Activity.findByIdAndDelete(id)
+
+			await User.updateOne(
+				{ _id: shop.responsible },
+				{ $pull: { responsible: shop._id } }
+			)
+
+			await User.updateOne(
+				{ _id: shop.createdBy },
+				{ $pull: { created: shop._id } }
+			)
+
 			res.status(200).json({ success: 'Activity is deleted' })
 		} catch (err) {
 			res.status(500).json({ msg: 'Something went wrong', eMsg: err.message })
