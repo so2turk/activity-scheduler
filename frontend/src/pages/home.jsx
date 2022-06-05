@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../app.css'
 import ActivityCard from '../components/activity-card'
+import Loading from '../components/loading'
 import axios from '../utils/axios'
 
 const Home = () => {
 	const [activities, setActivities] = useState([])
+	const [loading, setLoading] = useState(false)
 	const filter = {
 		status: false,
 	}
 
 	useEffect(() => {
+		setLoading(true)
 		getActivities()
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,6 +26,7 @@ const Home = () => {
 		} catch (err) {
 			console.log(err)
 		}
+		setLoading(false)
 	}
 
 	return (
@@ -38,13 +42,17 @@ const Home = () => {
 				<button className="button btnLR">Add Task</button>
 			</Link>
 			<div>
-				{activities.length > 0 &&
+				{activities.length > 0 ? (
 					activities.map((activity) => (
 						<Link to={`/activity/${activity._id}`}>
 							<ActivityCard activity={activity} />
 						</Link>
-					))}
+					))
+				) : (
+					<Loading />
+				)}
 			</div>
+			{loading && <Loading />}
 		</div>
 	)
 }

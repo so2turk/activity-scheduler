@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import AxiosJWT from '../utils/axios-jwt'
+import Loading from '../components/loading'
 
 const Activity = () => {
 	const { id } = useParams()
@@ -25,7 +26,23 @@ const Activity = () => {
 		}
 	}
 
-	return <div>{activity.task}</div>
+	if (!activity) return <Loading />
+
+	return (
+		<main>
+			<header>
+				<Link to="/">
+					<button className="button btnLR">Home</button>
+				</Link>
+			</header>
+			<section>
+				<div>{activity.task}</div>
+				<div>{activity.date}</div>
+				<div>{activity.duration}</div>
+				<div>{activity.responsible.name}</div>
+			</section>
+		</main>
+	)
 }
 
 export default Activity
