@@ -36,15 +36,13 @@ const Home = () => {
 				<button className="button btnLR">Add Task</button>
 			</Link>
 			<div className="cards">
-				{activities.length > 0 ? (
-					activities.map((activity) => (
-						<Link key={activity._id} to={`/activity/${activity._id}`}>
-							<ActivityCard activity={activity} />
-						</Link>
-					))
-				) : (
-					<Loading />
-				)}
+				{activities.length > 0
+					? activities.map((activity) => (
+							<Link key={activity._id} to={`/activity/${activity._id}`}>
+								<ActivityCard activity={activity} />
+							</Link>
+					  ))
+					: !loading && <h3>No task planned yet!!</h3>}
 			</div>
 			{loading && <Loading />}
 		</div>
