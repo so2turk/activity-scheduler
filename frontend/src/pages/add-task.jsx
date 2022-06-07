@@ -68,6 +68,7 @@ const AddTask = () => {
 		<div className="taskContainer">
 			<form className="taskForm" onSubmit={handleReg}>
 				<select ref={taskRef}>
+					<option>Select Task</option>
 					<option value="Mowing">Mowing</option>
 					<option value="Fertilisation">Fertilisation</option>
 					<option value="Irrigation">Irrigation</option>
@@ -87,9 +88,9 @@ const AddTask = () => {
 					ref={durationRef}
 				/>
 				<select ref={responsibleRef}>
-					<option>Select</option>
+					<option>Select Responsible Staff</option>
 					{staffs.map((e) => (
-						<option key={e.id} value={e._id}>
+						<option key={e._id} value={e._id}>
 							{e.name}
 						</option>
 					))}
