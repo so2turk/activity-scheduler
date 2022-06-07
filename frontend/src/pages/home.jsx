@@ -38,7 +38,7 @@ const Home = () => {
 			<div className="cards">
 				{activities.length > 0 ? (
 					activities.map((activity) => (
-						<Link to={`/activity/${activity._id}`}>
+						<Link key={activity._id} to={`/activity/${activity._id}`}>
 							<ActivityCard activity={activity} />
 						</Link>
 					))
