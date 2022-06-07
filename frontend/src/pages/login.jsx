@@ -6,6 +6,7 @@ import '../app.css'
 
 const Login = () => {
 	const { setAuth, persist, setPersist } = useAuth()
+	const [backendMsg, setBackendMsg] = useState('')
 
 	const [logFailure, setLogFailure] = useState(false)
 	const emailRef = useRef()
@@ -16,6 +17,7 @@ const Login = () => {
 
 	const handleLog = async (e) => {
 		e.preventDefault()
+		setBackendMsg('')
 
 		const userToLog = {
 			email: emailRef.current.value,
@@ -30,7 +32,7 @@ const Login = () => {
 			setAuth({ user, accessToken })
 			navigate(from, { replace: true })
 		} catch (err) {
-			console.log(err)
+			setBackendMsg(err.response.data)
 			setLogFailure(true)
 		}
 	}
@@ -68,7 +70,7 @@ const Login = () => {
 					<span className="persistSpan">Trust This Device</span>
 				</label>
 			</div>
-			{logFailure && <span className="failure">Login is failed</span>}
+			{logFailure && <span className="failure">{backendMsg}</span>}
 		</div>
 	)
 }
