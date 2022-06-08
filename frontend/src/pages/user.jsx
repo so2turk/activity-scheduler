@@ -38,8 +38,8 @@ const User = () => {
 		e.preventDefault()
 
 		const updateVal = {
-			emailRef: emailRef.current.value,
-			nameRef: nameRef.current.value,
+			email: emailRef.current.value,
+			name: nameRef.current.value,
 		}
 
 		let userToUpdate = {}
