@@ -11,9 +11,9 @@ const AddTask = () => {
 	const responsibleRef = useRef()
 	const axiosPrivate = AxiosJWT()
 	const [staffs, setStaffs] = useState([])
+	const [backendMsg, setBackendMsg] = useState(null)
 
 	const [addSuccess, setAddSucces] = useState(false)
-	const [addFailure, setAddFailure] = useState(false)
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -40,6 +40,7 @@ const AddTask = () => {
 
 	const handleReg = async (e) => {
 		e.preventDefault()
+		setBackendMsg(null)
 
 		const activityToCreate = {
 			task: taskRef.current.value,
@@ -52,14 +53,12 @@ const AddTask = () => {
 		try {
 			await axiosPrivate.post('/activity/create', activityToCreate)
 			setAddSucces(true)
-			setAddFailure(false)
 
 			setTimeout(() => {
 				navigate(from, { replace: true })
 			}, 1000)
 		} catch (err) {
-			console.log(err)
-			setAddFailure(true)
+			setBackendMsg(err.response.data)
 			setAddSucces(false)
 		}
 	}
@@ -103,9 +102,7 @@ const AddTask = () => {
 				{addSuccess && (
 					<span className="success">Activity is created successfuly</span>
 				)}
-				{addFailure && (
-					<span className="failure">Activity creation is failed</span>
-				)}
+				{backendMsg && <span className="failure">{backendMsg}</span>}
 			</div>
 		</div>
 	)
