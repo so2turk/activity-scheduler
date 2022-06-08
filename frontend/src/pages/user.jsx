@@ -12,7 +12,7 @@ const User = () => {
 	const nameRef = useRef()
 
 	const [addSuccess, setAddSucces] = useState(false)
-	const [addFailure, setAddFailure] = useState(false)
+	const [backendMsg, setBackendMsg] = useState('')
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -29,13 +29,22 @@ const User = () => {
 			const result = await axiosPrivate.get(`/users/getUser/${id}`)
 			setUser(result?.data?.user)
 		} catch (err) {
-			console.error(err)
-			navigate('/login', from, { replace: true })
+			setBackendMsg(err.response.data)
+			if (err.response.status === 403) {
+				setTimeout(() => {
+					navigate('/access-denied', from, { replace: true })
+				}, 1000)
+			} else {
+				setTimeout(() => {
+					navigate('/login', from, { replace: true })
+				}, 1000)
+			}
 		}
 	}
 
 	const handleUpdate = async (e) => {
 		e.preventDefault()
+		setBackendMsg(null)
 
 		const updateVal = {
 			email: emailRef.current.value,
@@ -53,14 +62,12 @@ const User = () => {
 		try {
 			await axiosPrivate.patch(`/users/update/${user._id}`, userToUpdate)
 			setAddSucces(true)
-			setAddFailure(false)
 
 			setTimeout(() => {
 				getUser()
 			}, 1000)
 		} catch (err) {
-			console.log(err)
-			setAddFailure(true)
+			setBackendMsg(err.response.data)
 			setAddSucces(false)
 		}
 	}
@@ -101,9 +108,7 @@ const User = () => {
 					{addSuccess && (
 						<span className="success">Activity is created successfuly</span>
 					)}
-					{addFailure && (
-						<span className="failure">Activity creation is failed</span>
-					)}
+					{backendMsg && <span className="failure">{backendMsg}</span>}
 				</div>
 			</section>
 		</main>
