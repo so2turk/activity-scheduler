@@ -9,6 +9,7 @@ import PersistentLogin from './components/persist-login'
 import Nav from './components/nav'
 import './app.css'
 import User from './pages/user'
+import AccessDenied from './pages/access-denied'
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
+					<Route path="/access-denied" element={<AccessDenied />} />
 
 					<Route element={<PersistentLogin />}>
 						<Route element={<AuthPages />}>
