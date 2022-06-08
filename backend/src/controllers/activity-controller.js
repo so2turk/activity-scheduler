@@ -49,7 +49,7 @@ export const updateActivity = async (req, res) => {
 	const user = await User.findById(req.id)
 
 	if (
-		user.created.some((activity) => activity == id) ||
+		user.created.some((activity) => activity._id == id) ||
 		user.role === 'admin'
 	) {
 		try {
@@ -70,7 +70,7 @@ export const deleteActivity = async (req, res) => {
 	const user = await User.findById(req.id)
 
 	if (
-		user.created.some((activity) => activity == id) ||
+		user.created.some((activity) => activity._id == id) ||
 		user.role === 'admin'
 	) {
 		try {
