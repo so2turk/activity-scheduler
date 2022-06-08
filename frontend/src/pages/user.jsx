@@ -56,7 +56,7 @@ const User = () => {
 			setAddFailure(false)
 
 			setTimeout(() => {
-				navigate(from, { replace: true })
+				getUser()
 			}, 1000)
 		} catch (err) {
 			console.log(err)
