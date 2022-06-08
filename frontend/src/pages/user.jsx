@@ -5,7 +5,7 @@ import Loading from '../components/loading'
 
 const User = () => {
 	const { id } = useParams()
-	const [user, serUser] = useState()
+	const [user, setUser] = useState()
 	const axiosPrivate = AxiosJWT()
 
 	const emailRef = useRef()
@@ -27,7 +27,7 @@ const User = () => {
 	const getUser = async () => {
 		try {
 			const result = await axiosPrivate.get(`/users/getUser/${id}`)
-			serUser(result?.data?.user)
+			setUser(result?.data?.user)
 		} catch (err) {
 			console.error(err)
 			navigate('/login', from, { replace: true })
