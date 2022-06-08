@@ -10,7 +10,6 @@ const User = () => {
 
 	const emailRef = useRef()
 	const nameRef = useRef()
-	const avatarRef = useRef()
 
 	const [addSuccess, setAddSucces] = useState(false)
 	const [addFailure, setAddFailure] = useState(false)
@@ -41,7 +40,6 @@ const User = () => {
 		const updateVal = {
 			emailRef: emailRef.current.value,
 			nameRef: nameRef.current.value,
-			avatarRef: avatarRef.current.value,
 		}
 
 		let userToUpdate = {}
