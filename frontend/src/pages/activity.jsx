@@ -7,6 +7,7 @@ const Activity = () => {
 	const { id } = useParams()
 	const [activity, setActivity] = useState()
 	const axiosPrivate = AxiosJWT()
+	const [backendMsg, setBackendMsg] = useState('')
 
 	const taskRef = useRef()
 	const descriptionRef = useRef()
@@ -16,7 +17,6 @@ const Activity = () => {
 	const [staffs, setStaffs] = useState([])
 
 	const [addSuccess, setAddSucces] = useState(false)
-	const [addFailure, setAddFailure] = useState(false)
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -74,14 +74,12 @@ const Activity = () => {
 				activityToUpdate
 			)
 			setAddSucces(true)
-			setAddFailure(false)
-
 			setTimeout(() => {
-				navigate(from, { replace: true })
+				// navigate(from, { replace: true })
+				getActivity()
 			}, 1000)
 		} catch (err) {
-			console.log(err)
-			setAddFailure(true)
+			setBackendMsg(err.response.data)
 			setAddSucces(false)
 		}
 	}
@@ -91,7 +89,7 @@ const Activity = () => {
 			const result = await axiosPrivate.get(`/activity/getActivity/${id}`)
 			setActivity(result?.data)
 		} catch (err) {
-			console.error(err)
+			setBackendMsg(err.response.data)
 			setTimeout(() => {
 				navigate('/', from, { replace: true })
 			}, 1000)
@@ -102,8 +100,7 @@ const Activity = () => {
 		try {
 			await axiosPrivate.delete(`/activity/delete/${id}`)
 		} catch (err) {
-			console.error(err)
-			navigate('/', from, { replace: true })
+			setBackendMsg(err.response.data)
 		}
 	}
 
@@ -113,19 +110,23 @@ const Activity = () => {
 		<main>
 			<section className="activityDetail">
 				<div>
-					<div>
-						<label>Created By:</label>
-						<Link to={`/user/${activity.createdBy._id}`}>
-							<img
-								style={{ width: '40px' }}
-								className="avatar nav-avatar"
-								alt={activity.createdBy.name}
-								src={activity.createdBy.avatar}
-							/>
-						</Link>
-					</div>{' '}
+					<label>Created By:</label>
+					<Link to={`/user/${activity.createdBy._id}`}>
+						<img
+							style={{ width: '40px' }}
+							className="avatar nav-avatar"
+							alt={activity.createdBy.name}
+							src={activity.createdBy.avatar}
+						/>
+					</Link>
+				</div>
+				<div>
 					<label>Task:</label>
 					{activity.task}
+				</div>
+				<div>
+					<label>Descrition:</label>
+					{activity.description}
 				</div>
 				<div>
 					<label>Date:</label>
@@ -150,6 +151,7 @@ const Activity = () => {
 			<section style={{ marginTop: '100px' }} className="activityUpdate">
 				<form className="taskForm" onSubmit={handleUpdate}>
 					<select ref={taskRef}>
+						<option value="">Select Task</option>
 						<option value="Mowing">Mowing</option>
 						<option value="Fertilisation">Fertilisation</option>
 						<option value="Irrigation">Irrigation</option>
@@ -169,9 +171,9 @@ const Activity = () => {
 						ref={durationRef}
 					/>
 					<select ref={responsibleRef}>
-						<option>Select</option>
+						<option value="">Select Staff</option>
 						{staffs.map((e) => (
-							<option key={e.id} value={e._id}>
+							<option key={e._id} value={e._id}>
 								{e.name}
 							</option>
 						))}
@@ -189,11 +191,9 @@ const Activity = () => {
 				</button>{' '}
 				<div>
 					{addSuccess && (
-						<span className="success">Activity is created successfuly</span>
+						<span className="success">Process is successfuly</span>
 					)}
-					{addFailure && (
-						<span className="failure">Activity creation is failed</span>
-					)}
+					{backendMsg && <span className="failure">{backendMsg}</span>}
 				</div>
 			</section>
 		</main>
