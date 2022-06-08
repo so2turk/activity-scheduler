@@ -51,7 +51,7 @@ const User = () => {
 		}
 
 		try {
-			await axiosPrivate.patch(`/activity/update/${user._id}`, userToUpdate)
+			await axiosPrivate.patch(`/users/update/${user._id}`, userToUpdate)
 			setAddSucces(true)
 			setAddFailure(false)
 
