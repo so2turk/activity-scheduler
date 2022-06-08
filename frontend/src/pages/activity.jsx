@@ -49,6 +49,7 @@ const Activity = () => {
 
 	const handleUpdate = async (e) => {
 		e.preventDefault()
+		setBackendMsg(null)
 
 		const updateVal = {
 			task: taskRef.current.value,
@@ -66,8 +67,6 @@ const Activity = () => {
 			}
 		}
 
-		console.log(activityToUpdate)
-
 		try {
 			await axiosPrivate.patch(
 				`/activity/update/${activity._id}`,
@@ -75,7 +74,6 @@ const Activity = () => {
 			)
 			setAddSucces(true)
 			setTimeout(() => {
-				// navigate(from, { replace: true })
 				getActivity()
 			}, 1000)
 		} catch (err) {
@@ -85,6 +83,7 @@ const Activity = () => {
 	}
 
 	const getActivity = async () => {
+		setBackendMsg(null)
 		try {
 			const result = await axiosPrivate.get(`/activity/getActivity/${id}`)
 			setActivity(result?.data)
@@ -97,8 +96,12 @@ const Activity = () => {
 	}
 
 	const handleDelete = async () => {
+		setBackendMsg(null)
 		try {
 			await axiosPrivate.delete(`/activity/delete/${id}`)
+			setTimeout(() => {
+				navigate('/', from, { replace: true })
+			}, 1000)
 		} catch (err) {
 			setBackendMsg(err.response.data)
 		}
